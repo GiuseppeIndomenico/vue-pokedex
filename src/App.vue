@@ -1,15 +1,17 @@
 <template>
   <div>
-    <SearchComponent></SearchComponent>
+    <MainComponent></MainComponent>
+
   </div>
 </template>
 
 <script>
-import SearchComponent from './components/SearchComponent.vue';
 
+import MainComponent from './components/MainComponent.vue';
+import { store } from './data/store';
 export default {
-  SearchComponent,
-  components: { SearchComponent }
+  store,
+  components: { MainComponent }
 }
 </script>
 
