@@ -1,7 +1,7 @@
 <template>
     <div>
         <input class="m-2" type="text" v-model="pokemonName" placeholder="Cerca Pokémon" @keyup.enter="searchPokemon">
-        <div @click="searchPokemon" class=" btn btn-danger">Cerca</div>
+        <div @click="searchPokemon" class=" btn btn-warning">Cerca</div>
         <div>
             <div class="p-name" v-for="(pokemon, index) in filteredPokemonList" :key="index"
                 @click="selectPokemon(pokemon)">
