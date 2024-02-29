@@ -1,23 +1,29 @@
 <template>
-    <div>
-        <input class="m-2" type="text" v-model="pokemonName" placeholder="Cerca Pokémon" @keyup.enter="searchPokemon">
+    <div class="m-2 h-100">
+        <input class="pixel mb-3 display-color" type="text" v-model="pokemonName" placeholder="Cerca Pokémon"
+            @keyup.enter="searchPokemon">
         <div @click="searchPokemon" class=" btn btn-warning">Cerca</div>
-        <div>
+
+        <div class="poke-display-img mb-3">
+            <div class=" d-flex flex-column align-items-center w-100" v-if="pokemonData">
+                <h2 class="text-center pt-2">{{ pokemonData.name }}</h2>
+                <img class="img-fluid" :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
+            </div>
+
+        </div>
+
+        <div class="pixel w-100 display-color p-2 name-poke mb-2">
             <div class="p-name" v-for="(pokemon, index) in filteredPokemonList" :key="index"
                 @click="selectPokemon(pokemon)">
                 {{ pokemon.name }}
             </div>
-        </div>
-        <div v-if="pokemonData">
-            <h2>{{ pokemonData.name }}</h2>
-            <img :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
         </div>
     </div>
 </template>
   
 <script>
 
-import { ref, computed } from 'vue'; // Importa ref e computed da Vue
+import { ref, computed } from 'vue';
 
 import { store } from "../data/store";
 
@@ -75,7 +81,35 @@ export default {
 </script>
   
 <style lang="scss" scoped>
-.p-name {
-    cursor: pointer;
+::placeholder {
+    color: black;
+}
+
+.poke-display-img {
+    width: 80%;
+    height: 250px;
+    border: 5px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+
+}
+
+.name-poke {
+    height: 300px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        border-radius: 100px;
+        border: 1px solid black;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: black;
+        border-radius: 100px;
+    }
 }
 </style>
