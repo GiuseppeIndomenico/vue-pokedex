@@ -4,10 +4,12 @@
             @keyup.enter="searchPokemon">
         <div @click="searchPokemon" class=" btn btn-warning">Cerca</div>
 
-        <div class="poke-display-img mb-3">
-            <div class=" d-flex flex-column align-items-center w-100" v-if="pokemonData">
-                <h2 class="text-center pt-2">{{ pokemonData.name }}</h2>
-                <img class="img-fluid" :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
+        <div class="poke-display-img mb-3 bg-dark">
+            <div class="h-100 pb-2 pixel display-color" v-if="pokemonData">
+                <h6 class="text-center fs-6 fw-bold">{{ pokemonData.name }}</h6>
+
+                <img class="" :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
+
             </div>
 
         </div>
@@ -88,13 +90,15 @@ export default {
 .poke-display-img {
     width: 80%;
     height: 250px;
-    border: 5px solid grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: 5px solid rgb(46, 46, 46);
     margin: auto;
 
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
 
+    }
 }
 
 .name-poke {
