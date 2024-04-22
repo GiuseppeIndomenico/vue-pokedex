@@ -101,6 +101,7 @@ export default {
                 const response = await fetch(pokemon.url);
                 const data = await response.json();
                 store.pokemonData = data;
+                isFrontImageVisible.value = true;
 
             } catch (error) {
                 console.error('Errore nel recupero delle informazioni del Pokémon:', error);
