@@ -5,24 +5,40 @@
         <div @click="searchPokemon" class=" btn btn-warning">Cerca</div>
 
         <div class="poke-display-img mb-3 bg-dark">
+
+
             <div class="h-100 pb-2 pixel display-color" v-if="pokemonData">
                 <h6 class="text-center fs-6 fw-bold">{{ pokemonData.name }}</h6>
 
                 <img class="" :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
 
             </div>
+            <div v-else class="h-100 pb-2 pixel display-color d-flex align-items-center justify-content-center">
+
+                <div class="fs-2">
+                    Seleziona un Pokémon
+                </div>
+            </div>
 
         </div>
 
         <div class="pixel w-100 display-color p-2 name-poke mb-2">
-            <div class="p-name" v-for="(pokemon, index) in filteredPokemonList" :key="index"
-                @click="selectPokemon(pokemon)">
-                {{ pokemon.name }}
+            <div v-if="filteredPokemonList.length === 1 && filteredPokemonList[0].name === 'Nessun Pokémon trovato'">
+                {{ filteredPokemonList[0].name }}
+            </div>
+            <div v-else>
+                <div class="p-name" v-for="(pokemon, index) in filteredPokemonList" :key="index"
+                    @click="selectPokemon(pokemon)">
+                    {{ pokemon.name }}
+                </div>
             </div>
         </div>
+
+
+
     </div>
 </template>
-  
+
 <script>
 
 import { ref, computed } from 'vue';
@@ -46,9 +62,16 @@ export default {
         };
 
         const searchPokemon = async () => {
-            store.pokemonData = null
+            store.pokemonData = null;
             await filterPokemonList();
+
+            if (pokemonName.value.trim() && store.filteredPokemonList.length === 0) {
+                store.filteredPokemonList = []; // Reset filtered list
+                store.filteredPokemonList.push({ name: 'Nessun Pokémon trovato' });
+            }
         };
+
+
 
         const selectPokemon = async (pokemon) => {
             try {
@@ -81,7 +104,7 @@ export default {
     }
 };
 </script>
-  
+
 <style lang="scss" scoped>
 ::placeholder {
     color: black;
