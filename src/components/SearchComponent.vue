@@ -1,8 +1,11 @@
 <template>
     <div class="m-2 h-100">
-        <input class="pixel mb-3 display-color" type="text" v-model="pokemonName" placeholder="Cerca Pokémon"
-            @keyup.enter="searchPokemon">
-        <div @click="searchPokemon" class=" btn btn-warning">Cerca</div>
+        <div class="input-group mb-3">
+            <input class="form-control pixel display-color" type="text" v-model="pokemonName"
+                placeholder="Cerca Pokémon" @keyup.enter="searchPokemon">
+            <button @click="searchPokemon" class="btn btn-warning">Cerca</button>
+        </div>
+
 
         <div class="poke-display-img mb-3 bg-dark">
 
@@ -138,5 +141,15 @@ export default {
         background-color: black;
         border-radius: 100px;
     }
+}
+
+.input-group input:focus {
+    background-color: #849c1c;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0);
+
+}
+
+.input-group {
+    user-select: none;
 }
 </style>
