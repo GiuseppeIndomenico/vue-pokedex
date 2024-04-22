@@ -12,10 +12,23 @@
 
             <div class="h-100 pb-2 pixel display-color" v-if="pokemonData">
                 <h6 class="text-center fs-6 fw-bold">{{ pokemonData.name }}</h6>
-
-                <img class="" :src="pokemonData.sprites.front_default" :alt="pokemonData.name">
-
+                <div class="container-fluid h-100 d-flex align-items-center justify-content-between">
+                    <div class="btn btn-warning" @click="togglePokemonImage"><i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    <div v-if="isFrontImageVisible">
+                        <img class="img-fluid" :src="pokemonData.sprites.front_default" :alt="pokemonData.name"
+                            style="width: 200px; height: 200px;">
+                    </div>
+                    <div v-else>
+                        <img class="img-fluid" :src="pokemonData.sprites.back_default" :alt="pokemonData.name"
+                            style="width: 200px; height: 200px;">
+                    </div>
+                    <div class="btn btn-warning" @click="togglePokemonImage"><i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
             </div>
+
+
             <div v-else class="h-100 pb-2 pixel display-color d-flex align-items-center justify-content-center">
 
                 <div class="fs-2">
@@ -56,6 +69,9 @@ export default {
         const allPokemon = computed(() => store.allPokemon);
         const filteredPokemonList = computed(() => store.filteredPokemonList);
 
+        // Utilizziamo una variabile locale per gestire lo stato dell'immagine visualizzata
+        const isFrontImageVisible = ref(true);
+
         const filterPokemonList = () => {
             if (!pokemonName.value.trim()) {
                 store.filteredPokemonList = [];
@@ -74,6 +90,10 @@ export default {
             }
         };
 
+        const togglePokemonImage = () => {
+            // Invertiamo lo stato dell'immagine visualizzata
+            isFrontImageVisible.value = !isFrontImageVisible.value;
+        };
 
 
         const selectPokemon = async (pokemon) => {
@@ -81,10 +101,12 @@ export default {
                 const response = await fetch(pokemon.url);
                 const data = await response.json();
                 store.pokemonData = data;
+
             } catch (error) {
                 console.error('Errore nel recupero delle informazioni del Pokémon:', error);
             }
         };
+
 
         const fetchAllPokemon = async () => {
             try {
@@ -102,7 +124,10 @@ export default {
             pokemonData,
             filteredPokemonList,
             searchPokemon,
-            selectPokemon
+            selectPokemon,
+            // Esponiamo la variabile locale allo scope del template
+            isFrontImageVisible,
+            togglePokemonImage // Aggiungiamo il metodo al return
         };
     }
 };
@@ -119,12 +144,6 @@ export default {
     border: 5px solid rgb(46, 46, 46);
     margin: auto;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-
-    }
 }
 
 .name-poke {

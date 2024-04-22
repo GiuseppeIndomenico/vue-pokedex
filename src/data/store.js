@@ -7,5 +7,6 @@ export const store = reactive({
     pokemonName: '',
     pokemonData: null,
     allPokemon: [],
-    filteredPokemonList: []
+    filteredPokemonList: [],
+
 });
